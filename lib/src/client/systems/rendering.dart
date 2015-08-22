@@ -9,7 +9,7 @@ Matrix4 createViewProjectionMatrix(TagManager tm, World world) {
   var projMatrix = new Matrix4.identity();
   setViewMatrix(
       viewMatrix,
-      new Vector3(pos.value.x, pos.value.x, pos.value.z),
+      new Vector3(pos.value.x, pos.value.y, pos.value.z),
       new Vector3(0.0, 0.0, 0.0),
       new Vector3(0.0, 1.0, 0.0));
   setPerspectiveMatrix(projMatrix, PI / 4, 800 / 600, 0.01, 1000);
