@@ -13,9 +13,9 @@ Matrix4 createViewProjectionMatrix(TagManager tm, World world) {
       new Vector3(0.0, 0.0, 0.0),
       new Vector3(0.0, 1.0, 0.0));
   setPerspectiveMatrix(projMatrix, PI / 4, 800 / 600, 0.01, 1000);
-  var viewProjextionMatrix = projMatrix * viewMatrix;
+  var viewProjectionMatrix = projMatrix * viewMatrix;
 
-  return viewProjextionMatrix;
+  return viewProjectionMatrix;
 }
 
 class RenderingSystem extends WebGlRenderingSystem {
@@ -46,20 +46,20 @@ class RenderingSystem extends WebGlRenderingSystem {
     int idxOffset = index * idxPerEntity;
     int itemOffset = index * valuesPerItem;
 
-    items[offset] = -dim.value.x / 2 + pos.value.x;
-    items[offset + 1] = -dim.value.y / 2 + pos.value.y;
+    items[offset] = pos.value.x;
+    items[offset + 1] = pos.value.y;
     items[offset + 2] = pos.value.z;
 
-    items[offset + 6] = dim.value.x / 2 + pos.value.x;
-    items[offset + 7] = -dim.value.y / 2 + pos.value.y;
+    items[offset + 6] = pos.value.x + dim.value.x;
+    items[offset + 7] = pos.value.y;
     items[offset + 8] = pos.value.z;
 
-    items[offset + 12] = dim.value.x / 2 + pos.value.x;
-    items[offset + 13] = dim.value.y / 2 + pos.value.y;
+    items[offset + 12] = pos.value.x + dim.value.x;
+    items[offset + 13] = pos.value.y + dim.value.y;
     items[offset + 14] = pos.value.z;
 
-    items[offset + 18] = -dim.value.x / 2 + pos.value.x;
-    items[offset + 19] = dim.value.y / 2 + pos.value.y;
+    items[offset + 18] = pos.value.x;
+    items[offset + 19] = dim.value.y + pos.value.y;
     items[offset + 20] = pos.value.z;
 
     for (int i = 0; i < 4; i++) {

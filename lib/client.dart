@@ -25,11 +25,11 @@ class Game extends GameBase {
 
   void createEntities() {
     var tm = world.getManager(TagManager) as TagManager;
-    addEntity([new Position(0.0, 0.0, 0.0), new Dimensions(10.0, 10.0, 0.1), new Renderable(1.0, 0.0, 0.0)]);
-    addEntity([new Position(10.0, 10.0, 0.1), new Dimensions(10.0, 10.0, 0.1), new Renderable(0.0, 1.0, 0.0)]);
-    addEntity([new Position(-50.0, -50.0, -0.5), new Dimensions(10.0, 10.0, 0.1), new Renderable(0.0, 0.0, 1.0)]);
-    addEntity([new Position(250.0, 0.0, -0.5), new Dimensions(300.0, 600.0, 0.1), new Renderable(0.8, 0.8, 0.8)]);
-    addEntity([new Position(250.0, 0.0, -0.6), new Dimensions(150.0, 50.0, 0.1), new Renderable(0.2, 0.2, 0.2)]);
+    addEntity([new Position(-150.0, 0.0, 0.1), new Dimensions(10.0, 100.0, 0.1), new Renderable(1.0, 0.0, 0.0)]);
+    addEntity([new Position(-50.0, 0.0, 0.1), new Dimensions(10.0, 50.0, 0.1), new Renderable(0.0, 1.0, 0.0)]);
+    addEntity([new Position(-250.0, 0.0, 0.1), new Dimensions(10.0, 50.0, 0.1), new Renderable(0.0, 0.0, 1.0)]);
+    addEntity([new Position(100.0, -300.0, -0.5), new Dimensions(300.0, 600.0, 0.1), new Renderable(0.8, 0.8, 0.8)]);
+    addEntity([new Position(200.0, 0.0, -0.6), new Dimensions(150.0, 50.0, 0.1), new Renderable(0.2, 0.2, 0.2)]);
 
     var camera = addEntity([new Position(0.0, 0.0, -700.0), new Camera()]);
     tm.register(camera, cameraTag);
