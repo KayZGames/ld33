@@ -1,2 +1,3 @@
-# ld33
-Ludum Dare 33, Theme: You are the Monster
+ld33
+===========
+[Play on kaygames.github.io](http://kayzgames.github.io/ld33)
