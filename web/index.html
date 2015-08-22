@@ -7,8 +7,19 @@
   </head>
   <body>
     <div id="gamecontainer">
-      <canvas id="game" width="800px" height="600px"></canvas>
-      <canvas id="hud" width="800px" height="600px"></canvas>
+      <div id="player">
+          <h1>Player</h1>
+          <div class="status">
+              <div>Clicks: <span class="clicks"></span></div>
+          </div>
+          <div class="upgrades"></div>
+      </div>
+        <div id="monster">
+          <h1>Monster</h1>
+          <div class="status"></div>
+          <div class="actions"></div>
+          <div class="upgrades"></div>
+      </div>
     </div>
     <script type="application/dart" src="ld33.dart"></script>
     <script src="packages/browser/dart.js"></script>

@@ -1,20 +1,16 @@
 part of shared;
 
-class Position extends Component {
-  Vector3 value;
-  Position(double x, double y, double z) : value = new Vector3(x, y, z);
+class Status extends Component {
+  String name;
+  double value;
+  Status(this.name, this.value);
 }
 
-class Dimensions extends Component {
-  Vector3 value;
-  Dimensions(double width, double height, double depth)
-      : value = new Vector3(width, height, depth);
+class Upgrade extends Component {
+  String name;
+  Upgrade(this.name);
 }
 
-class Renderable extends Component {
-  Vector3 rgb;
-  Renderable(double red, double green, double blue)
-      : rgb = new Vector3(red, green, blue);
-}
-
-class Camera extends Component {}
+class Player extends Component {}
+class Monster extends Component {}
+class Clicker extends Component {}
