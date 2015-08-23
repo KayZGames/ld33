@@ -4,4 +4,9 @@ part 'src/shared/components.dart';
 //part 'src/shared/systems/name.dart';
 part 'src/shared/systems/logic.dart';
 
+
 const String cameraTag = 'camera';
+
+const String statusClicks = 'clicks';
+const String statusMisses = 'misses';
+const String statusFrustration = 'frustration';
