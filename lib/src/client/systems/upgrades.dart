@@ -14,16 +14,35 @@ abstract class UpagradeRenderingSystem extends EntityProcessingSystem {
 
     var upgradeElement = new DivElement();
     var button = new ButtonElement();
+    var descriptionContainer = new DivElement();
     var description = new DivElement();
+    var level = new DivElement();
+    var cost = new DivElement();
     parentNode.append(upgradeElement);
     upgradeElement.append(button);
-    upgradeElement.append(description);
+    upgradeElement.append(descriptionContainer);
+    descriptionContainer.append(description);
+    descriptionContainer.append(level);
+    descriptionContainer.append(cost);
 
     upgradeElement.classes.add(upgrade.name);
     button.text = upgrade.label;
     button.disabled = true;
-    description.text = upgrade.description;
+    description.innerHtml = upgrade.description;
+    level.text = 'Level: ${upgrade.level}';
+    cost.text = 'Cost: ${upgrade.cost}';
     buttons[upgrade.name] = button;
+
+    button.onClick.listen((_) {
+      button.disabled = true;
+      statusManager.values[upgrade.resource] -= upgrade.cost;
+      upgrade.level++;
+      upgrade.cost = (upgrade.cost * upgrade.costMultiplier).ceil();
+      level.text = 'Level: ${upgrade.level}';
+      cost.text = 'Cost: ${upgrade.cost}';
+      e.addComponent(new Owned());
+      e.changedInWorld();
+    });
   }
 
   @override

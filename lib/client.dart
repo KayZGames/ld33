@@ -42,8 +42,9 @@ class Game extends GameBase {
 
     addEntity([
       new Monster(),
-      new Upgrade('randomMove', statusFrustration, 0.0, 10.0, 'Random Movement',
-          'You\'ll move randomly on you own')
+      new Upgrade('randomMove', statusFrustration, 0.0, 10.0, 1.5, 'Random Movement',
+          'You\'ll move randomly on your own and the player will miss you.<br />Missing chance: 5% per level'),
+      new RandomMovement(),
     ]);
   }
 
@@ -52,13 +53,16 @@ class Game extends GameBase {
       GameBase.rendering: [
         new PlayerStatusRenderingSystem(),
         new MonsterStatusRenderingSystem(),
+
         new PlayerUpagradeRenderingSystem(),
-        new MonsterUpagradeRenderingSystem()
+        new MonsterUpagradeRenderingSystem(),
+
+        new PlayerActionSystem(),
+        new MonsterActionSystem(),
       ],
       GameBase.physics: [
         new ClickerSystem(),
-        new PlayerActionSystem(),
-        new MonsterActionSystem(),
+        new RandomMovementSystem(),
       ]
     };
   }
