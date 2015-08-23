@@ -45,7 +45,7 @@ class PlayerStatusRenderingSystem extends StatusRenderingSystem {
   PlayerStatusManager psm;
   PlayerStatusRenderingSystem()
       : super(querySelector('#player .status'),
-      Aspect.getAspectForAllOf([Player]));
+            Aspect.getAspectForAllOf([Player]));
 
   StatusManager get statusManager => psm;
 }
@@ -54,6 +54,22 @@ class MonsterStatusRenderingSystem extends StatusRenderingSystem {
   MonsterStatusManager msm;
   MonsterStatusRenderingSystem()
       : super(querySelector('#monster .status'),
-      Aspect.getAspectForAllOf([Monster]));
+            Aspect.getAspectForAllOf([Monster]));
   StatusManager get statusManager => msm;
+}
+
+class PlayerInfoRenderingSystem extends VoidEntitySystem {
+  PlayerStatusManager psm;
+  String type;
+
+  @override
+  void processSystem() {
+    type = psm.currentPlayer.type;
+
+    querySelector('.info .type').text = type;
+    querySelector('.info .description').text =
+        psm.currentPlayer.description;
+  }
+
+  bool checkProcessing() => psm.currentPlayer.type != type;
 }

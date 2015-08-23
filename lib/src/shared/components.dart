@@ -18,8 +18,10 @@ class Upgrade extends Component {
   String description;
   int level;
   int maxLevel;
+  double chance;
   Script upgrade;
   double initialCost;
+
 
   Upgrade(
       this.name,
@@ -30,6 +32,7 @@ class Upgrade extends Component {
       this.label,
       this.description,
       this.maxLevel,
+      this.chance,
       this.upgrade,
       [this.level = 0]) {
     this.initialCost = cost;
@@ -51,7 +54,11 @@ class Monster extends Component {}
 
 class Clicker extends Component {}
 
+class AutoClicker extends Component {}
+
 class RandomMovement extends Component {}
+
+class RepetitiveStrainInjury extends Component {}
 
 class Owned extends Component {}
 

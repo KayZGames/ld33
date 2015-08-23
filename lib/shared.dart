@@ -1,5 +1,4 @@
 library shared;
-import 'dart:collection';
 import 'package:gamedev_helpers/gamedev_helpers_shared.dart';
 part 'src/shared/components.dart';
 //part 'src/shared/systems/name.dart';
@@ -12,8 +11,12 @@ const String cameraTag = 'camera';
 const String statusCps = 'cps';
 const String statusClicks = 'clicks';
 const String statusMisses = 'misses';
+const String statusPain = 'pain';
 const String statusGold = 'gold';
 const String statusHappiness = 'happiness';
+const String statusCrashes = 'crashes';
+
+
 const String statusFrustration = 'frustration';
 const String statusQueuedMoves = 'queuedMoves';
 const String statusDefeatedPlayers = 'defeatedPlayers';

@@ -5,28 +5,36 @@ abstract class StatusManager extends Manager {
 }
 
 class PlayerStatusManager extends StatusManager {
-  double cps;
   double goldMultiplier;
   double lastClick = 0.0;
+  double lastAutoClick = 0.0;
+  PlayerInfo currentPlayer;
 
-  PlayerStatusManager(double cps, double happiness) {
-    reset(cps, happiness);
+  PlayerStatusManager(PlayerInfo player) {
+    reset(player);
   }
 
-  void reset(double cps, happiness) {
+  void reset(PlayerInfo player) {
     values = {
       statusClicks: 0.0,
       statusMisses: 0.0,
       statusGold: 0.0,
-      statusHappiness: happiness
+      statusPain: 0.0,
+      statusCrashes: 0.0,
+      statusHappiness: player.happiness
     };
     goldMultiplier = 1.0;
-    this.cps = cps;
-    this.goldMultiplier = 1.0;
+    currentPlayer = player;
   }
 }
 
 class MonsterStatusManager extends StatusManager {
+  bool randomMove = false;
+  bool randomMoveTriggered = false;
+  bool repetitiveStrainInjury = false;
+  bool repetitiveStrainInjuryTriggered = false;
+  bool crashAutoClicker = false;
+
   MonsterStatusManager() {
     values = {
       statusFrustration: 0.0,
@@ -37,7 +45,7 @@ class MonsterStatusManager extends StatusManager {
 }
 
 class RandomMovementSystem extends EntityProcessingSystem {
-  ClickerSystem cs;
+  MonsterStatusManager msm;
   Mapper<Upgrade> um;
   RandomMovementSystem()
       : super(Aspect.getAspectForAllOf([Upgrade, RandomMovement, Owned]));
@@ -46,13 +54,32 @@ class RandomMovementSystem extends EntityProcessingSystem {
   void processEntity(Entity entity) {
     var upgrade = um[entity];
 
-    if (random.nextDouble() <= upgrade.level * 0.05) {
-      cs.randomMove = true;
+    if (random.nextDouble() <= upgrade.level * upgrade.chance) {
+      msm.randomMove = true;
     }
-    cs.randomMoveTriggered = true;
+    msm.randomMoveTriggered = true;
   }
 
-  bool checkProcessing() => !cs.randomMoveTriggered;
+  bool checkProcessing() => !msm.randomMoveTriggered;
+}
+
+class RepetitiveStrainInjurySystem extends EntityProcessingSystem {
+  MonsterStatusManager msm;
+  Mapper<Upgrade> um;
+  RepetitiveStrainInjurySystem()
+      : super(Aspect.getAspectForAllOf([Upgrade, RepetitiveStrainInjury, Owned]));
+
+  @override
+  void processEntity(Entity entity) {
+    var upgrade = um[entity];
+
+    if (random.nextDouble() <= upgrade.level * upgrade.chance) {
+      msm.repetitiveStrainInjury = true;
+    }
+    msm.repetitiveStrainInjuryTriggered = true;
+  }
+
+  bool checkProcessing() => !msm.repetitiveStrainInjuryTriggered;
 }
 
 class CooldownSystem extends EntityProcessingSystem {
@@ -69,26 +96,13 @@ class CooldownSystem extends EntityProcessingSystem {
     }
   }
 }
-
-class PlayerSwitchingSystem extends VoidEntitySystem {
-  PlayerStatusManager psm;
-  PlayerUpgradeReseetingSystem purs;
-  MonsterStatusManager msm;
-  Queue<Map<String, double>> players = new Queue<Map<String, double>>.from([
-    {statusCps: 2.0, statusHappiness: 1000.0}
-  ]);
-
-  @override
-  void processSystem() {
-    if (psm.values[statusHappiness] <= 0.0) {
-      if (players.length == 0) {} else {
-        var player = players.removeFirst();
-        psm.reset(player[statusCps], player[statusHappiness]);
-        purs.execute = true;
-        msm.values[statusDefeatedPlayers]++;
-      }
-    }
-  }
+class PlayerInfo {
+  double cps;
+  double acps;
+  double happiness;
+  String type;
+  String description;
+  PlayerInfo(this.cps, this.acps, this.happiness, this.type, this.description);
 }
 
 class PlayerUpgradeReseetingSystem extends EntityProcessingSystem {

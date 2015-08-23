@@ -79,7 +79,7 @@ abstract class UpagradeSystem extends EntityProcessingSystem {
       button.nextElementSibling.style.width = '0%';
     }
     if (upgrade.level == upgrade.maxLevel) {
-      level.text = 'Level: ${upgrade.level} (max level)';
+      level.text = 'Level: ${upgrade.level} (max)';
       cost.text = '';
     } else {
       level.text = 'Level: ${upgrade.level}';
@@ -120,10 +120,11 @@ class PlayerUpgradeBuyingSystem extends EntityProcessingSystem {
     var resource = psm.values[upgrade.resource];
 
     if (upgrade.cost <= resource) {
+      psm.values[statusHappiness] += upgrade.cost / 10.0;
       pus.executeUpgrade(upgrade, entity);
       psm.lastClick = time;
     }
   }
 
-  bool checkProcessing() => 1.0 / (time - psm.lastClick) < psm.cps;
+  bool checkProcessing() => 1.0 / (time - psm.lastClick) < psm.currentPlayer.cps;
 }

@@ -30,8 +30,6 @@ class ActionSystem extends EntityProcessingSystem {
     button.onClick.listen((_) {
       button.disabled = true;
       action.action();
-      print(action.cooldown);
-      print(action);
       e.addComponent(new Cooldown(action.cooldown));
       e.changedInWorld();
     });
