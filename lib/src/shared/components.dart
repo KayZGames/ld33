@@ -1,6 +1,6 @@
 part of shared;
 
-typedef void MonsterAction();
+typedef void Script();
 
 class Status extends Component {
   String name;
@@ -17,16 +17,32 @@ class Upgrade extends Component {
   String label;
   String description;
   int level;
-  Upgrade(this.name, this.resource, this.thresholdToShow, this.cost, this.costMultiplier, this.label,
-      this.description, [this.level = 0]);
+  int maxLevel;
+  Script upgrade;
+  double initialCost;
+
+  Upgrade(
+      this.name,
+      this.resource,
+      this.thresholdToShow,
+      this.cost,
+      this.costMultiplier,
+      this.label,
+      this.description,
+      this.maxLevel,
+      this.upgrade,
+      [this.level = 0]) {
+    this.initialCost = cost;
+  }
 }
 
 class Action extends Component {
   String name;
   String label;
   String description;
-  MonsterAction action;
-  Action(this.name, this.label, this.description, this.action);
+  Script action;
+  double cooldown;
+  Action(this.name, this.label, this.description, this.action, this.cooldown);
 }
 
 class Player extends Component {}
@@ -38,3 +54,8 @@ class Clicker extends Component {}
 class RandomMovement extends Component {}
 
 class Owned extends Component {}
+
+class Cooldown extends Component {
+  double value;
+  Cooldown(this.value);
+}
