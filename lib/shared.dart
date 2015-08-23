@@ -9,4 +9,5 @@ const String cameraTag = 'camera';
 
 const String statusClicks = 'clicks';
 const String statusMisses = 'misses';
+const String statusGold = 'gold';
 const String statusFrustration = 'frustration';

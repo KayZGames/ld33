@@ -3,7 +3,7 @@ part of client;
 class ActionSystem extends EntityProcessingSystem {
   Mapper<Action> am;
 
-  DivElement parentNode;
+  Element parentNode;
 
   ActionSystem(this.parentNode, Aspect aspect) : super(aspect.allOf([Action]));
 

@@ -8,14 +8,23 @@ export 'package:gamedev_helpers/gamedev_helpers.dart';
 //part 'src/client/systems/name.dart';
 part 'src/client/systems/events.dart';
 part 'src/client/systems/rendering.dart';
+part 'src/client/systems/upgrades.dart';
+part 'src/client/systems/status.dart';
 
 class Game extends GameBase {
   Game() : super.noCanvas('ld33');
 
   void createEntities() {
+    addEntity([new Player(), new Status(statusGold, 'Gold')]);
     addEntity(
         [new Player(), new Status(statusClicks, 'Clicks'), new Clicker()]);
     addEntity([new Player(), new Status(statusMisses, 'Missed Clicks')]);
+
+    addEntity([
+      new Player(),
+      new Action('click', 'Click Monster', 'Click the monster. Earn Gold.', () {
+      })
+    ]);
 
     addEntity([
       new Monster(),
