@@ -10,7 +10,12 @@ class Status extends Component {
 
 class Upgrade extends Component {
   String name;
-  Upgrade(this.name);
+  String resource;
+  double thresholdToShow;
+  double cost;
+  String label;
+  String description;
+  Upgrade(this.name, this.resource, this.thresholdToShow, this.cost, this.label, this.description);
 }
 
 class Action extends Component {

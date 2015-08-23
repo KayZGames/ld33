@@ -12,23 +12,29 @@ part 'src/client/systems/rendering.dart';
 class Game extends GameBase {
   Game() : super.noCanvas('ld33');
 
-
   void createEntities() {
-    addEntity([new Player(), new Status(statusClicks, 'Clicks'), new Clicker()]);
+    addEntity(
+        [new Player(), new Status(statusClicks, 'Clicks'), new Clicker()]);
     addEntity([new Player(), new Status(statusMisses, 'Missed Clicks')]);
-
-    addEntity([new Monster(), new Status(statusFrustration, 'Collected Frustration')]);
 
     addEntity([
       new Monster(),
-      new Action(
-          'move',
-          'Movement',
-          'Move a bit. The player won\'t hit you with his next click, thus raising his frustration.',
-          () {
-            var cs = world.getSystem(ClickerSystem) as ClickerSystem;
-            cs.miss = true;
-          })
+      new Status(statusFrustration, 'Collected Frustration')
+    ]);
+
+    addEntity([
+      new Monster(),
+      new Action('move', 'Movement',
+          'Move a bit. The player won\'t hit you with his next click.', () {
+        var cs = world.getSystem(ClickerSystem) as ClickerSystem;
+        cs.miss = true;
+      })
+    ]);
+
+    addEntity([
+      new Monster(),
+      new Upgrade('randomMove', statusFrustration, 0.0, 10.0, 'Random Movement',
+          'You\'ll move randomly on you own')
     ]);
   }
 
@@ -37,6 +43,8 @@ class Game extends GameBase {
       GameBase.rendering: [
         new PlayerStatusRenderingSystem(),
         new MonsterStatusRenderingSystem(),
+        new PlayerUpagradeRenderingSystem(),
+        new MonsterUpagradeRenderingSystem()
       ],
       GameBase.physics: [
         new ClickerSystem(),

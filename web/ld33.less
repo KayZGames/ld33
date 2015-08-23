@@ -1,0 +1,80 @@
+body {
+  text-align: center;
+}
+
+#gamecontainer {
+  position: relative;
+  margin: auto;
+  background-color: gainsboro;
+  height: 600px;
+}
+
+#player, #monster {
+  display: inline-block;
+  width: 350px;
+  height: 600px;
+}
+
+#player {
+  padding-right: 20px;
+  border-right: 2px solid black;
+}
+
+#monster {
+  margin-left: 20px;
+}
+
+.status {
+  text-align: right;
+  clear: both;
+  label {
+    width: 240px;
+    margin-right: 10px;
+    &::after {
+      content: ': ';
+    }
+  }
+  > div {
+    display: none;
+  }
+  > div, > div > * {
+    float: left;
+  }
+  > div > div {
+    width: 100px;
+  }
+}
+
+.actions, .upgrades {
+  text-align: left;
+  button {
+    width: 90px;
+    height: 50px;
+    margin-right: 10px;
+  }
+  > div > * {
+    float: left;
+  }
+  > div > div {
+    width: 250px;
+    text-align: left;
+  }
+}
+
+section {
+  background-color: mintcream;
+  float: left;
+  width: 350px;
+  > * {
+    padding: 5px 0 5px 0;
+  }
+}
+
+h2 {
+  background-color: cornsilk;
+  text-align: left;
+  clear: both;
+  border-bottom: 2px black solid;
+  margin: 0 0 0 0;
+  padding: 10px 5px 0 5px;
+}
