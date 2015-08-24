@@ -56,9 +56,13 @@ class Clicker extends Component {}
 
 class AutoClicker extends Component {}
 
+class BrowserExtensionClicker extends Component {}
+
 class RandomMovement extends Component {}
 
 class RepetitiveStrainInjury extends Component {}
+
+class HackScript extends Component {}
 
 class Owned extends Component {}
 

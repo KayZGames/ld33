@@ -8,6 +8,7 @@ class PlayerStatusManager extends StatusManager {
   double goldMultiplier;
   double lastClick = 0.0;
   double lastAutoClick = 0.0;
+  double lastFunctionCall = 0.0;
   PlayerInfo currentPlayer;
 
   PlayerStatusManager(PlayerInfo player) {
@@ -34,6 +35,9 @@ class MonsterStatusManager extends StatusManager {
   bool repetitiveStrainInjury = false;
   bool repetitiveStrainInjuryTriggered = false;
   bool crashAutoClicker = false;
+  bool obfuscateCode = false;
+  bool hackScript = false;
+  bool hackScriptTriggered = false;
 
   MonsterStatusManager() {
     values = {
@@ -82,6 +86,25 @@ class RepetitiveStrainInjurySystem extends EntityProcessingSystem {
   bool checkProcessing() => !msm.repetitiveStrainInjuryTriggered;
 }
 
+class HackScriptSystem extends EntityProcessingSystem {
+  MonsterStatusManager msm;
+  Mapper<Upgrade> um;
+  HackScriptSystem()
+      : super(Aspect.getAspectForAllOf([Upgrade, HackScript, Owned]));
+
+  @override
+  void processEntity(Entity entity) {
+    var upgrade = um[entity];
+
+    if (random.nextDouble() <= upgrade.level * upgrade.chance) {
+      msm.hackScript = true;
+    }
+    msm.hackScriptTriggered = true;
+  }
+
+  bool checkProcessing() => !msm.hackScriptTriggered;
+}
+
 class CooldownSystem extends EntityProcessingSystem {
   Mapper<Cooldown> cm;
   CooldownSystem() : super(Aspect.getAspectForAllOf([Cooldown]));
@@ -99,10 +122,11 @@ class CooldownSystem extends EntityProcessingSystem {
 class PlayerInfo {
   double cps;
   double acps;
+  double becps;
   double happiness;
   String type;
   String description;
-  PlayerInfo(this.cps, this.acps, this.happiness, this.type, this.description);
+  PlayerInfo(this.cps, this.acps, this.becps, this.happiness, this.type, this.description);
 }
 
 class PlayerUpgradeReseetingSystem extends EntityProcessingSystem {

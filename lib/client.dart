@@ -44,7 +44,7 @@ class Game extends GameBase {
           2.0,
           'Gold Digger',
           'Earn 1 more piece of gold per click.',
-          10,
+          99,
           1.0,
           () => psm.goldMultiplier++),
     ]);
@@ -58,8 +58,15 @@ class Game extends GameBase {
     addEntity(
         [new Monster(), new Status(statusDefeatedPlayers, 'Beaten Players')]);
 
-    var autoClickerAction =
-        new Action('crashAutoClick', 'Crash Script', 'Crashes any script a player is currently running.', () {
+    var obfuscationAction = new Action('obfuscateCode', 'Obfuscate Code',
+        'Randomly obfuscate the code. Function calling scripts need to be rewritten.',
+        () {
+      msm.obfuscateCode = true;
+    }, 20.0);
+    addEntity([new Monster(), obfuscationAction]);
+
+    var autoClickerAction = new Action('crashAutoClick', 'Crash Script',
+        'Crashes any script a player is currently running.', () {
       msm.crashAutoClicker = true;
     }, 10.0);
     addEntity([new Monster(), autoClickerAction]);
@@ -73,11 +80,50 @@ class Game extends GameBase {
     addEntity([
       new Monster(),
       new Upgrade(
+          'sentient',
+          statusFrustration,
+          30000.0,
+          50000.0,
+          1.0,
+          'Gain Sentience',
+          'The player will feel sorry for attacking you.',
+          1,
+          1.0, () {
+        psm.values[statusHappiness] -= 1000000;
+      }),
+    ]);
+
+    addEntity([
+      new Monster(),
+      new Upgrade(
+          'hackScript',
+          statusFrustration,
+          2500.0,
+          3000.0,
+          1.5,
+          'Hack Script',
+          'The player will randomly get popups and other annoying stuff will happen.',
+          10,
+          0.01, () {}),
+      new HackScript(),
+    ]);
+
+    addEntity([
+      new Monster(),
+      new Upgrade('obfuscationCooldown', statusFrustration, 1500.0, 2000.0, 1.2,
+          'Optimize Obfuscator', 'Faster Obfuscation.', 10, 1.0, () {
+        obfuscationAction.cooldown -= 1.0;
+      }),
+    ]);
+
+    addEntity([
+      new Monster(),
+      new Upgrade(
           'crashAutoClickerCooldown',
           statusFrustration,
           450.0,
           500.0,
-          1.6,
+          1.2,
           'Party Crasher',
           'Script crashes can be triggered faster.',
           10,
@@ -93,10 +139,10 @@ class Game extends GameBase {
           statusFrustration,
           15.0,
           25.0,
-          1.6,
+          1.5,
           'Chicken Mode',
           'You\'ll randomly evade a click on your own.<br />Evasion chance: 5.0% per level',
-          10,
+          15,
           0.05, () {}),
       new RandomMovement(),
     ]);
@@ -148,9 +194,11 @@ class Game extends GameBase {
         new PlayerUpgradeBuyingSystem(),
         new ClickerSystem(),
         // rest
+        new BrowserExtensionClickerSystem(),
         new AutoClickerSystem(),
         new RandomMovementSystem(),
         new RepetitiveStrainInjurySystem(),
+        new HackScriptSystem(),
         new CooldownSystem(),
         new PlayerSwitchingSystem(),
         new PlayerUpgradeReseetingSystem(),
@@ -162,6 +210,7 @@ class Game extends GameBase {
     world.addManager(new TagManager());
     world.addManager(new PlayerStatusManager(new PlayerInfo(
         1.0,
+        0.0,
         0.0,
         100.0,
         'Casual Idler',
