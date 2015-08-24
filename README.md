@@ -1,6 +1,6 @@
 ld33
 ===========
-[Play on kaygames.github.io](http://kayzgames.github.io/ld33)
+[Play on kayzgames.github.io](http://kayzgames.github.io/ld33)
 
 It's the advent of idle and clicker games. The player clicks a few times, buys some upgrades and the game just
 progresses over time, even while he is offline.
