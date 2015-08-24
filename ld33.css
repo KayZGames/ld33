@@ -1,0 +1,105 @@
+body {
+  text-align: center;
+  background-color: gainsboro;
+}
+#gamecontainer {
+  position: relative;
+  margin: auto;
+  height: 600px;
+}
+#congratulations {
+  display: block;
+  width: 700px;
+  font-size: large;
+  margin: auto;
+}
+#player,
+#monster {
+  display: inline-block;
+  width: 350px;
+  height: 600px;
+}
+#player {
+  padding-right: 20px;
+  border-right: 2px solid black;
+}
+#monster {
+  margin-left: 8px;
+}
+.status {
+  text-align: right;
+  clear: both;
+}
+.status label {
+  width: 240px;
+  margin-right: 10px;
+}
+.status label::after {
+  content: ': ';
+}
+.status > div {
+  display: none;
+}
+.status > div,
+.status > div > * {
+  float: left;
+}
+.status > div > div {
+  width: 100px;
+}
+.actions,
+.upgrades {
+  text-align: left;
+}
+.actions .buttonContainer > div,
+.upgrades .buttonContainer > div {
+  height: 3px;
+  background-color: forestgreen;
+}
+.actions .buttonContainer,
+.upgrades .buttonContainer,
+.actions button,
+.upgrades button {
+  width: 90px;
+  height: 50px;
+  margin-right: 10px;
+}
+.actions > div > *,
+.upgrades > div > * {
+  float: left;
+}
+.actions > div > div,
+.upgrades > div > div {
+  width: 250px;
+  text-align: left;
+}
+section {
+  background-color: mintcream;
+  float: left;
+  width: 350px;
+  padding: 0 5px 0 5px;
+}
+section > * {
+  padding: 5px 0 5px 0;
+}
+section > div {
+  float: left;
+}
+section > div ~ div {
+  border-top: 1px dotted skyblue;
+}
+h2 {
+  background-color: cornsilk;
+  text-align: left;
+  clear: both;
+  border-bottom: 2px black solid;
+  margin: 0 0 0 0;
+  padding: 10px 5px 0 5px;
+}
+.info .description {
+  text-align: left;
+}
+.crashAutoClick,
+.obfuscateCode {
+  display: none;
+}
